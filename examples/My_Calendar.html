@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+
+	<link href='../packages/core/main.css' rel='stylesheet' />
+	<link href='../packages/daygrid/main.css' rel='stylesheet' />
+	<link href='../packages/timegrid/main.css' rel='stylesheet' />
+	<link href='../packages/list/main.css' rel='stylesheet' />
+	<link href='../packages/CSS/calendar_temple.css' rel='stylesheet'>
+	<script src='../packages/core/main.js'></script>
+	<script src='../packages/interaction/main.js'></script>
+	<script src='../packages/daygrid/main.js'></script>
+	<script src='../packages/timegrid/main.js'></script>
+	<script src='../packages/list/main.js'></script>
+	<script src='../examples/js/theme-chooser.js'></script>
+	<script src="../examples/js/jquery-3.4.1.js"></script>
+	<script src="../examples/js/jquery-ui-1.12.1/jquery-ui.js"></script>
+	<script src="../examples/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+	<script src="../examples/js/jquery-ui-1.12.1/moment.js"></script>
+	<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>
+	<title>行事曆</title>
+
+</head>
+
+<body>
+	<div id='wrap'>
+    <div id='external-events'>
+      <h4>Draggable Events</h4>
+
+      <div id='external_events_list'>
+        <div class='fc-event'>My Event 1</div>
+        <div class='fc-event'>My Event 2</div>
+        <div class='fc-event'>My Event 3</div>
+        <div class='fc-event'>My Event 4</div>
+        <div class='fc-event'>My Event 5</div>
+      </div>
+
+      <p>
+        <input type='checkbox' id='drop-remove' />
+        <label for='drop-remove'>remove after drop</label>
+      </p>
+    </div>
+
+    <div id="calendar"></div>
+
+    <div style='clear:both'></div>
+
+  </div>
+	
+	<script type="text/javascript">
+	
+			$('document').ready(function(){
+
+
+				//var Calendar = FullCalendar.Calendar //行事曆物件 (core.js)
+				var Draggable = FullCalendarInteraction.Draggable // 可拖曳物件 (core.js)				
+
+ 						/* initialize the external events
+    -----------------------------------------------------------------*/
+				var CalendarE1 = document.getElementById('external_events_list');
+				//var CalendarE1=$('#external_events_list')
+
+				$('#calendar').fullCalendar({
+    				weekends: true
+  				});
+				
+				new Draggable(CalendarE1,{
+					itemSelector:'.fc-event',
+					evenData:function(elem){
+						return{title:elem.innertext.tirm()}
+					}
+
+				})
+			})
+
+	</script>
+	
+
+	
+</body>
+</html>
