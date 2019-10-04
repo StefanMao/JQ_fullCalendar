@@ -12,7 +12,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print"/>
 <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.0/themes/sunny/jquery-ui.css" rel="stylesheet"/>
 
-
 <div id="calendar"></div> 
 <script>
 
@@ -24,6 +23,8 @@
     themeSystem: 'jquery-ui',
     themeName:'sunny',
     locale:'zh-tw',
+    events: ["../examples/php/load.php"],
+    
     plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
     header: {
         left: 'title',
@@ -58,34 +59,76 @@
       selectable:true,
       selectHelper:true,
 
-      events: '../examples/php/insert.php',
-
-      select : function(start, end ,allDay){
-
-        var title =prompt("請輸入事件名稱")
-        if(title)
-        {
-          var start =$.fullCalendar.formatDate(start,"Y-MM-DD HH:mm:ss")
-          var end =$.fullCalendar.formatDate(end,"Y-MM-DD HH:mm:ss")
-          
-          $.ajax({
-
-            url:'../examples/php/insert.php',
-            type:'POST',
-            data:{title:title,start:start,end:end},
-            success:function(){
-              
-              $('#calendar').fullCalendar('refetchEvents')
-              alert("新增成功!")
-
-            }
-          })
-        }
-      }
-
-
-
+      select: function(start, end, allDay)
+    {
+     var title = prompt("Enter Event Title");
+     if(title)
+     {
+      var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+      var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
       
+      $.ajax({
+       url:"../examples/php/insert.php",
+       type:"POST",
+       data:{title:title, start:start, end:end},
+       success:function()
+       {
+        $('#calendar').fullCalendar('refetchEvents');
+        alert("Added Successfully");
+       }
+      })
+     }
+    },
+      eventResize:function(event)
+    {
+     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var title = event.title;
+     var id = event.id;
+     $.ajax({
+      url:"update.php",
+      type:"POST",
+      data:{title:title, start:start, end:end, id:id},
+      success:function(){
+       calendar.fullCalendar('refetchEvents');
+       alert('Event Update');
+      }
+     })
+    },
+    eventDrop:function(event)
+    {
+     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var title = event.title;
+     var id = event.id;
+     $.ajax({
+      url:"update.php",
+      type:"POST",
+      data:{title:title, start:start, end:end, id:id},
+      success:function()
+      {
+       calendar.fullCalendar('refetchEvents');
+       alert("Event Updated");
+      }
+     });
+    },
+    eventClick:function(event)
+    {
+     if(confirm("Are you sure you want to remove it?"))
+     {
+      var id = event.id;
+      $.ajax({
+       url:"delete.php",
+       type:"POST",
+       data:{id:id},
+       success:function()
+       {
+        calendar.fullCalendar('refetchEvents');
+        alert("Event Removed");
+       }
+      })
+     }
+    }    
 
         
 

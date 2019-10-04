@@ -9,8 +9,8 @@
 <script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.css" rel="stylesheet"  />
 <link href="../packages/CSS/calendar_temple.css" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print"/>
-<link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.0/themes/sunny/jquery-ui.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print">
+<link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.0/themes/sunny/jquery-ui.css" rel="stylesheet">
 
 
 <div id="calendar"></div>
@@ -18,8 +18,9 @@
 
     /* initialize the calendar
     -----------------------------------------------------------------*/
-    $(document).ready(function () {
-   $('#calendar').fullCalendar({
+
+
+    $('#calendar').fullCalendar({
 
     themeSystem: 'jquery-ui',
     themeName:'sunny',
@@ -55,44 +56,21 @@
     },
 
       editable:true,
-      selectable:true,
-      selectHelper:true,
-
-      events: 'load.php',
-
-      select : function(start, end ,allDay){
-
-        var title =prompt("請輸入事件名稱")
-        if(title)
-        {
-          var start =$.fullCalendar.formatDate(start,"Y-MM-DD HH:mm:ss")
-          var end =$.fullCalendar.formatDate(end,"Y-MM-DD HH:mm:ss")
-          $.ajax({
-
-            url:"insert.php",
-            type:"POST",
-            data:{title:title,start:start,end:end},
-            success:function(){
-              calendar.fullCalendar('refectEvents')
-              alert("新增成功!")
-
-            }
-          })
-        }
-      }
 
 
 
+      events: [
+  			{ // 事件
+  				title: "約會",
+  				start: "2019-09-25"
+  			}
+
+			],
+
+
+    })
+    
       
-
-        
-
-    })
-
-
-    })
-  
-
 
 
 </script>
