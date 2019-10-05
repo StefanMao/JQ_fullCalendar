@@ -9,25 +9,22 @@
 <script type="text/javascript" src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.css" rel="stylesheet"  />
 <link href="../packages/CSS/calendar_temple.css" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print"/>
-<link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.0/themes/sunny/jquery-ui.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print">
+<link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.0/themes/sunny/jquery-ui.css" rel="stylesheet">
 
-<div id="calendar"></div> 
+
+<div id="calendar"></div>
 <script>
 
     /* initialize the calendar
     -----------------------------------------------------------------*/
-  $(document).ready(function () {
 
 
-
-   var calendar = $('#calendar').fullCalendar({
+    $('#calendar').fullCalendar({
 
     themeSystem: 'jquery-ui',
     themeName:'sunny',
     locale:'zh-tw',
-    
-    
     plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
     header: {
         left: 'title',
@@ -59,39 +56,21 @@
     },
 
       editable:true,
-      selectable:true,
-      selectHelper:true,
-      eventLimit:true,
-      events: "http://localhost/JQ_Calendar_web/examples/php/load.php",
 
-      select: function(start, end, allDay)
-    {
-     var title = prompt("Enter Event Title");
-     if(title)
-     {
-      var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-      var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+
+
+      events: [
+  			{ // 事件
+  				title: "約會",
+  				start: "2019-09-25"
+  			}
+
+			],
+
+
+    })
+    
       
-      $.ajax({
-       url:"http://localhost/JQ_Calendar_web/examples/php/insert.php",
-       type:"POST",
-       data:{title:title, start:start, end:end},
-       success:function()
-       {
-        calendar.fullCalendar('refetchEvents');
-        alert("Added Successfully");
-       }
-      })
-     }
-    }
-
-
-        
-    })
-
-    })
-  
-
 
 
 </script>
