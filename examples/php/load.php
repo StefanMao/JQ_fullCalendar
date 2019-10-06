@@ -1,13 +1,14 @@
 <?php
 
 // load.php
+  //header("Content-Type:text/html;charset=utf8");
   require_once("DB_config.php");
   //require_once("DB_Class.php");
 
   try
 {
     //注意，使用PDO方式連結，需要指定一個資料庫，否則將拋出異常
-    $conn = new PDO('mysql:host=localhost;dbname=fullcalendar','root','5566');
+    $conn = new PDO('mysql:host=localhost;dbname=fullcalendar;charset=utf8mb4','root','5566');
     $conn->exec("SET CHARACTER SET utf8");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //echo "Connected Successfully"."<br />";
@@ -38,6 +39,8 @@ foreach($result as $row)
 
    );
 }
-echo json_encode($data);
+
+//echo json_encode($data);
+echo json_encode($data, JSON_UNESCAPED_UNICODE);
 
 ?>
