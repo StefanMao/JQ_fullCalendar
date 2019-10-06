@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset='utf-8' />
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.0/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.js"></script>
@@ -64,25 +64,67 @@
       eventLimit:true,
       events: "http://localhost/JQ_Calendar_web/examples/php/load.php",
 
+
       select: function(start, end, allDay)
     {
      var title = prompt("Enter Event Title");
      if(title)
      {
-      var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-      var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+      var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss")
+      var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss")
       
       $.ajax({
        url:"http://localhost/JQ_Calendar_web/examples/php/insert.php",
        type:"POST",
+       contentType: "application/x-www-form-urlencoded; charset=utf-8",
        data:{title:title, start:start, end:end},
        success:function()
        {
-        calendar.fullCalendar('refetchEvents');
-        alert("Added Successfully");
+        console.log("insert"+ title)
+        calendar.fullCalendar('refetchEvents')
+        alert("Added Successfully")
        }
       })
      }
+    },
+    eventResize:function(event) //日程调整结束且日程被改變時觸發function
+    {
+      var start =$.fullCalendar.formatDate(event.start,"Y-MM-DD HH:mm:ss")
+      var end =$.fullCalendar.formatDate(event.end,"Y-MM-DD HH:mm:ss")
+      var title=event.title
+      var id = event.id
+      $.ajax({
+        url:"http://localhost/JQ_Calendar_web/examples/php/update.php",
+        type:"POST",
+        data:{title:title, start:start, end:end,id:id},
+        success:function(){
+          calendar.fullCalendar('refetchEvents')
+          alert("Update Successfully")
+        }
+        
+      })
+
+    },
+    eventDrop:function(event)
+    {
+      var start =$.fullCalendar.formatDate(event.start,"Y-MM-DD HH:mm:ss")
+      var end =$.fullCalendar.formatDate(event.end,"Y-MM-DD HH:mm:ss")
+      var title=event.title
+      var id = event.id
+      $.ajax({
+        url:"http://localhost/JQ_Calendar_web/examples/php/update.php",
+        type:"POST",
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        data:{title:title, start:start, end:end,id:id},
+        success:function(){
+          
+          console.log("drop"+title)
+          calendar.fullCalendar('refetchEvents')
+          alert("Update Successfully")
+        }
+        
+      })
+
     }
 
 
