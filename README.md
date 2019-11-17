@@ -10,6 +10,35 @@ Jquery Fullcalandar Integration with PHP and Mysql
 # Functional
 1.FullCalendar CRUD with Jquery Ajax PHP and Mysql
 
+## 1.Original Interface
+![alt tag](https://imgur.com/oI0UspE.jpg)
+
+## 2.Add Event
+滑鼠在該日期上點擊兩下，即可新增事件
+![alt tag](https://imgur.com/Y2e3iGv.jpg)
+
+## 3.Add Successful
+新增成功，同時也將資料同步更新到 MySQL
+![alt tag](https://imgur.com/gpvp8f3.jpg)
+
+## 4.list
+也可以利用List清單的方式呈現
+![alt tag](https://imgur.com/SUc6EVP.jpg)
+
+
+## 5.draggle event
+可以用滑鼠直接針對日期上的事件進行拖曳(將原本在11/5 拖曳到 11/6)
+![alt tag](https://imgur.com/dBttEGh.jpg)
+
+## 6.Delete Event
+在事件上點擊游標即可刪除事件
+![alt tag](https://imgur.com/RW4XyVi.jpg)
+
+## 7. MySQL Update
+將資料同步更新到 MySQL 的fullcalendar 資料
+![alt tag](https://imgur.com/qPKvmw2.jpg)
+
+
 
 # Reference
 1.https://demos.creative-tim.com/now-ui-dashboard-pro/docs/1.0/plugins/fullcalendar.html
